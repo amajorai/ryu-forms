@@ -1,0 +1,819 @@
+{
+  "version": 1,
+  "package": "forms",
+  "scope": "complete",
+  "expectedRows": 62,
+  "selector": {
+    "spec": "e2e/forms-workflow.spec.ts",
+    "config": "playwright.config.ts"
+  },
+  "evidenceBoundary": "Playwright renders the Forms Builder and respondent page in Chromium on local Vite. The package test bridge supplies the app request contract and records exact calls while management, publication, public submission, response readback, CSV export, and deletion reach the isolated local Forms sidecar over HTTP. A local route fails one public submission so the UI can prove retained answers and retry; a fixture fails transient list reads. The 101-row pagination fixture seeds only the isolated SQLite database through FormsStore with valid synthetic answers and spaced rate-limit buckets, then browser page one and page two use the real sidecar cursor API. Screenshots are package-owned. This does not prove Core ExtensionHost delivery, a production node/hosted link, external provider behavior, native OS controls, or system clipboard integration.",
+  "assertions": [
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "475",
+        "component": "FormsApp",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "All forms returns from the detail editor to the server-backed summary and saved form rows.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"All forms\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "486",
+        "component": "FormsApp",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "New form opens the create flow and the successful create request carries the selected template.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"New form\", exact: true }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "500",
+        "component": "FormsApp",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "recovers through both Forms service retry actions",
+      "assertionName": "Retry in the error banner reloads the list and clears the unavailable state after recovery.",
+      "assertionMarker": "retryButtons.nth(0).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "517",
+        "component": "FormsApp",
+        "tag": "FormWorkspace",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "A form title edit updates the active workspace and enables its save action.",
+      "assertionMarker": "titleInput.fill(\"Question type regression: revised\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "571",
+        "component": "FormsApp",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "recovers through both Forms service retry actions",
+      "assertionName": "The unavailable-state Retry issues a new list request and keeps the page recoverable after a second failure.",
+      "assertionMarker": "retryButtons.nth(1).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "584",
+        "component": "FormsApp",
+        "tag": "CreateFormDialog",
+        "events": "onOpenChange"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "Escape closes the controlled New form dialog without creating a record.",
+      "assertionMarker": "dialog.press(\"Escape\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "613",
+        "component": "FormsApp",
+        "tag": "Dialog",
+        "events": "onOpenChange"
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "The destructive dialog names the form-and-responses consequence and can be canceled safely.",
+      "assertionMarker": "await expect(confirmation).toContainText("
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "625",
+        "component": "FormsApp",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "Cancel closes the confirmation dialog and makes no DELETE request.",
+      "assertionMarker": "confirmation.getByRole(\"button\", { name: \"Cancel\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "632",
+        "component": "FormsApp",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "The confirmed destructive action deletes the selected form after the cancel path proved no mutation occurred.",
+      "assertionMarker": "getByRole(\"button\", { name: \"Delete form\", exact: true })"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "681",
+        "component": "CreateFormDialog",
+        "tag": "Dialog",
+        "events": "onOpenChange"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "The create dialog handles Escape through its controlled open-change callback.",
+      "assertionMarker": "dialog.press(\"Escape\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "702",
+        "component": "CreateFormDialog",
+        "tag": "Input",
+        "events": "onChange"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "Changing the form name derives a readable URL slug before the user overrides it.",
+      "assertionMarker": "nameInput.fill(\"Parity intake\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "715",
+        "component": "CreateFormDialog",
+        "tag": "Input",
+        "events": "onChange"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "An invalid nonempty slug reaches server validation, leaves the dialog open, and does not create a form.",
+      "assertionMarker": "slugInput.fill(\"invalid slug\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "727",
+        "component": "CreateFormDialog",
+        "tag": "Select",
+        "events": "onValueChange"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "Selecting Feedback changes the create request template and yields the feedback question fields.",
+      "assertionMarker": "dialog.getByRole(\"combobox\", { name: \"Start with\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "733",
+        "component": "CreateFormDialog",
+        "tag": "SelectTrigger",
+        "events": ""
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "The Start with trigger displays the selected template and exposes its options.",
+      "assertionMarker": "name: \"Feedback form\""
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "751",
+        "component": "CreateFormDialog",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "Create form submits the exact corrected title, manually retained slug, and template.",
+      "assertionMarker": "dialog.getByRole(\"button\", { name: \"Create form\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "785",
+        "component": "FormsList",
+        "tag": "Summary",
+        "events": ""
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "The Forms summary reads the actual one-record list count.",
+      "assertionMarker": "summaryFor(\"Forms\")).toContainText(\"1\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "789",
+        "component": "FormsList",
+        "tag": "Summary",
+        "events": ""
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "The Published summary reflects the published record from the live service list.",
+      "assertionMarker": "summaryFor(\"Published\")).toContainText(\"1\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "793",
+        "component": "FormsList",
+        "tag": "Summary",
+        "events": ""
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "The Responses summary reflects all 101 persisted submissions, including the second page.",
+      "assertionMarker": "summaryFor(\"Responses\")).toContainText(\"101\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "803",
+        "component": "FormsList",
+        "tag": "button",
+        "events": "onClick"
+      },
+      "testTitle": "creates a validated template, reopens its saved row, and returns to the list",
+      "assertionName": "Selecting the saved list row reads the matching server detail and restores its title.",
+      "assertionMarker": "listRow.click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "834",
+        "component": "FormsList",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Create your first form opens the same create flow from the empty Forms list.",
+      "assertionMarker": "name: \"Create your first form\""
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "953",
+        "component": "FormWorkspace",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Save changes sends the current editor content and updates the saved revision.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Save changes\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "961",
+        "component": "FormWorkspace",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "Unpublish sends the exact action for the current form and its public URL stops serving the form.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Unpublish\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "969",
+        "component": "FormWorkspace",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "Publish reaches the sidecar action and exposes the public form link.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Publish\", exact: true }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "976",
+        "component": "FormWorkspace",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "Delete form opens a confirmation before any request is issued.",
+      "assertionMarker": "await page.getByRole(\"button\", { name: \"Delete form\", exact: true }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "982",
+        "component": "FormWorkspace",
+        "tag": "Tabs",
+        "events": "onValueChange"
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "Changing the Responses tab loads the first actual keyset page from the Forms service.",
+      "assertionMarker": "page.getByRole(\"tab\", { name: \"Responses\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "992",
+        "component": "FormWorkspace",
+        "tag": "TabsTrigger",
+        "events": ""
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "The Editor tab returns to the editable canvas after sharing and response review.",
+      "assertionMarker": "page.getByRole(\"tab\", { name: \"Editor\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "996",
+        "component": "FormWorkspace",
+        "tag": "TabsTrigger",
+        "events": ""
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "The Responses tab renders the first page and exposes Load older when a cursor exists.",
+      "assertionMarker": "page.getByRole(\"tab\", { name: \"Responses\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "999",
+        "component": "FormWorkspace",
+        "tag": "TabsTrigger",
+        "events": ""
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "The Share tab shows the node-generated public URL and copy/open actions.",
+      "assertionMarker": "page.getByRole(\"tab\", { name: \"Share\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1010",
+        "component": "FormWorkspace",
+        "tag": "Input",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Editing the form title updates the controlled editor value.",
+      "assertionMarker": "titleInput.fill(\"Question type regression: revised\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1024",
+        "component": "FormWorkspace",
+        "tag": "Textarea",
+        "events": "onChange,onKeyDown"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Pressing slash in an empty description opens the block picker; entered description text also persists.",
+      "assertionMarker": "page.getByLabel(\"Description\", { exact: true }).press(\"/\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1055",
+        "component": "FormWorkspace",
+        "tag": "QuestionEditor",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "QuestionEditor changes are propagated into the parent form payload and persisted.",
+      "assertionMarker": "fill(\"Contact method\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1073",
+        "component": "FormWorkspace",
+        "tag": "Input",
+        "events": "onChange,onKeyDown"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Enter commits free question text as a new field rather than leaving it as an uncommitted draft.",
+      "assertionMarker": "insertLine.press(\"Enter\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1099",
+        "component": "FormWorkspace",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "The in-workspace plus control opens the block picker for adding another question.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Open question blocks\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1115",
+        "component": "FormWorkspace",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Add a question starts the first field flow on a blank document.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Add a question\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1153",
+        "component": "FormWorkspace",
+        "tag": "details",
+        "events": ""
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The confirmation disclosure is initially closed and opens its saved-setting fields.",
+      "assertionMarker": "page.locator(\"details\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1154",
+        "component": "FormWorkspace",
+        "tag": "summary",
+        "events": ""
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The Confirmation screen summary toggles the native disclosure open.",
+      "assertionMarker": "disclosure.getByText(\"Confirmation screen\", { exact: true }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1162",
+        "component": "FormWorkspace",
+        "tag": "Input",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The confirmation title is included in the saved form document.",
+      "assertionMarker": "page.getByLabel(\"Title\", { exact: true }).fill(\"We have your details\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1178",
+        "component": "FormWorkspace",
+        "tag": "Textarea",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The confirmation message is included in the saved form document.",
+      "assertionMarker": "fill(\"The selected contact preferences are saved.\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1195",
+        "component": "FormWorkspace",
+        "tag": "Input",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The custom submit-button text is included in the saved form document.",
+      "assertionMarker": "fill(\"Send preferences\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1235",
+        "component": "FormWorkspace",
+        "tag": "InsertBlockDialog",
+        "events": "onOpenChange,onSelect"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Choosing a block invokes the workspace callback and closes the dialog after adding that field.",
+      "assertionMarker": "await shortAnswerBlock.click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1289",
+        "component": "SharePanel",
+        "tag": "Input",
+        "events": ""
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "The readonly link input contains the current node origin plus the published slug.",
+      "assertionMarker": "const shareInput = page.getByLabel(\"Public link\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1298",
+        "component": "SharePanel",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "Copy link writes the exact public URL to the browser clipboard and reports success.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Copy link\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/App.tsx",
+        "line": "1303",
+        "component": "SharePanel",
+        "tag": "a",
+        "events": ""
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "Open form opens the actual published respondent page in a new tab.",
+      "assertionMarker": "page.getByRole(\"link\", { name: \"Open form\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/InsertBlockDialog.tsx",
+        "line": "56",
+        "component": "InsertBlockDialog",
+        "tag": "Dialog",
+        "events": "onOpenChange"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Escape closes the controlled question-block dialog without inserting anything.",
+      "assertionMarker": "insertDialog.press(\"Escape\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/InsertBlockDialog.tsx",
+        "line": "70",
+        "component": "InsertBlockDialog",
+        "tag": "Input",
+        "events": "onChange,onKeyDown"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Searching filters available question types and shows the no-match state for an invalid query.",
+      "assertionMarker": "fill(\"no-such-block\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/InsertBlockDialog.tsx",
+        "line": "115",
+        "component": "InsertBlockDialog",
+        "tag": "Button",
+        "events": "onClick,onFocus,onMouseEnter"
+      },
+      "testTitle": "starts from the empty-state action and inserts question blocks by click and keyboard",
+      "assertionName": "Hovering a question type moves the active preview state before click inserts it.",
+      "assertionMarker": "shortAnswerBlock.hover()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "114",
+        "component": "QuestionEditor",
+        "tag": "Select",
+        "events": "onValueChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Answer type selection cycles the field among every supported respondent control.",
+      "assertionMarker": "await chooseType(\"Long answer\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "120",
+        "component": "QuestionEditor",
+        "tag": "SelectTrigger",
+        "events": ""
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Opening the Answer type trigger exposes the selection menu used to change the question.",
+      "assertionMarker": "answerType.click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "137",
+        "component": "QuestionEditor",
+        "tag": "Checkbox",
+        "events": "onCheckedChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Required can be cleared and restored, and the final value is saved with the field.",
+      "assertionMarker": "required.click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "147",
+        "component": "QuestionEditor",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Move question up restores the original ordering after the down action.",
+      "assertionMarker": "name: \"Move question up\""
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "157",
+        "component": "QuestionEditor",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Move question down changes the field order read back from the editor.",
+      "assertionMarker": "name: \"Move question down\""
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "167",
+        "component": "QuestionEditor",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Remove question removes the selected field from the editor and saved payload.",
+      "assertionMarker": "name: \"Remove question\""
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "184",
+        "component": "QuestionEditor",
+        "tag": "Input",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The question title is updated as a controlled value and saved exactly.",
+      "assertionMarker": "fill(\"Contact method\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "200",
+        "component": "QuestionEditor",
+        "tag": "Textarea",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Helper text is retained with its question in the saved document.",
+      "assertionMarker": "Choose every way you are comfortable being contacted."
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "216",
+        "component": "QuestionEditor",
+        "tag": "Textarea",
+        "events": ""
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Long-answer preview is explicitly readonly while rendering the selected input type.",
+      "assertionMarker": "longPreview).toHaveAttribute(\"readonly\", \"\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "235",
+        "component": "QuestionEditor",
+        "tag": "Checkbox",
+        "events": ""
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The checkbox preview for a choice question remains disabled and cannot alter editor values.",
+      "assertionMarker": "previewCheckboxes.first()).toBeDisabled()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "252",
+        "component": "QuestionEditor",
+        "tag": "Input",
+        "events": "onChange"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Option text edits read back and become part of the saved choice options.",
+      "assertionMarker": "getByRole(\"textbox\", { name: \"Option 3\" }).fill(\"Other\")"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "265",
+        "component": "QuestionEditor",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Remove option deletes the selected choice while preserving the required minimum of two.",
+      "assertionMarker": "getByRole(\"button\", { name: \"Remove option 1\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "281",
+        "component": "QuestionEditor",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "Add option appends a third editable choice before the removal assertion.",
+      "assertionMarker": "getByRole(\"button\", { name: \"Add option\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/QuestionEditor.tsx",
+        "line": "303",
+        "component": "QuestionEditor",
+        "tag": "Input",
+        "events": ""
+      },
+      "testTitle": "question types, ordering, validation, and confirmation settings persist on save",
+      "assertionName": "The short-answer preview is readonly and switches its HTML input type for email, number, and date.",
+      "assertionMarker": "getByLabel(\"Short answer\", { exact: true })"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/ResponsesPanel.tsx",
+        "line": "65",
+        "component": "ResponsesPanel",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "builds a form, publishes it, collects a response, and exports CSV",
+      "assertionName": "Export CSV downloads data rows and the exact field headers from the stored response.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Export CSV\" }).click()"
+    },
+    {
+      "row": {
+        "package": "forms",
+        "source_file": "apps-store/forms/sidecar/ui/src/ResponsesPanel.tsx",
+        "line": "91",
+        "component": "ResponsesPanel",
+        "tag": "Button",
+        "events": "onClick"
+      },
+      "testTitle": "loads both response pages and deletes the form only after confirmation",
+      "assertionName": "Load older appends the next real cursor page and the request uses the returned cursor.",
+      "assertionMarker": "page.getByRole(\"button\", { name: \"Load older responses\" }).click()"
+    }
+  ]
+}
