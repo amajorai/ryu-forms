@@ -1,0 +1,36 @@
+{
+  "name": "@ryu/forms-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The Ryu Forms Companion, bundled into one HTML document.",
+  "ryuCompanionInteractionMap": "e2e/companion-interactions.json",
+  "scripts": {
+    "build": "vite build && bun run strip-bundle.ts",
+    "check-types": "tsc --noEmit",
+    "test": "bun test src e2e/interaction-map.test.mjs",
+    "test:e2e": "playwright test --config=playwright.config.ts e2e/forms-workflow.spec.ts"
+  },
+  "dependencies": {
+    "@ryu/app-host": "workspace:*",
+    "@ryu/blocks": "workspace:*",
+    "@ryu/i18n": "workspace:*",
+    "@ryu/ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zod": "catalog:",
+    "@toolwind/corner-shape": "0.0.8-3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@ryu/config": "workspace:*",
+    "@tailwindcss/postcss": "^4.2.0",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vite": "^6",
+    "vite-plugin-singlefile": "^2.3.0"
+  }
+}
