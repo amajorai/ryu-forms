@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ryu.forms",
+  "version": "0.1.0",
+  "description": "Create shareable forms, collect responses, and export submissions from Ryu.",
+  "author": {
+    "name": "Ryu",
+    "url": "https://ryuhq.com"
+  },
+  "homepage": "https://github.com/amajorai/ryu-forms",
+  "repository": "https://github.com/amajorai/ryu-forms",
+  "keywords": ["forms", "surveys", "intake", "feedback", "submissions"],
+  "extensions": {
+    "com.ryuhq.ryu": {
+      "id": "@ryu/forms",
+      "displayName": "Forms"
+    }
+  }
+}

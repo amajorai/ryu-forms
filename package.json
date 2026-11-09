@@ -1,0 +1,8 @@
+{
+  "name": "ryu-forms-satellite",
+  "private": true,
+  "workspaces": [
+    "sidecar",
+    "packages/*"
+  ]
+}
